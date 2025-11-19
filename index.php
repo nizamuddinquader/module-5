@@ -1,3 +1,16 @@
+<?php
+
+$oldData = json_decode(file_get_contents('contacts.json'), true);
+
+
+if (!is_array($oldData)) {
+    $oldData = [];
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +28,7 @@
         <div class="row">
             <h1 class="text-center mt-5">Contact list</h1>
             <div class="col-md-12">
-                <a href="#" class="">Create a new contact</a>
+                <a href="form.php" class="">Create a new contact</a>
 
                 <div class="input-group mb-3 mt-3">
                     <input class="form-control me-3" type="search" placeholder="Search contact...">
@@ -41,13 +54,16 @@
                         </thead>
 
                         <tbody>
+                            <?php
+                                foreach($oldData as $contact):
+                            ?>
                             <tr>
-                                <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Usman_Ali_Khan.jpg/250px-Usman_Ali_Khan.jpg" width="60"></td>
-                                <td>Nizam</td>
-                                <td>Nizam@gmail.com</td>
-                                <td>01851613121</td>
-                                <td>218, Lalbagh</td>
-                                <td>family</td>
+                                <td><img src="<?php echo $contact['photo'];?>" alt="" width="60"></td>
+                                <td><?php echo $contact['name'];?></td>
+                                <td><?php echo $contact['email'];?></td>
+                                <td><?php echo $contact['phone'];?></td>
+                                <td><?php echo $contact['address'];?></td>
+                                <td><?php echo $contact['relation'];?></td>
 
                               
                                 <td class="text-center">
@@ -57,6 +73,9 @@
                                     </div>
                                 </td>
                             </tr>
+                            <?php
+                                endforeach;
+                            ?>
                         </tbody>
                     </table>
                 </div>
